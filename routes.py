@@ -5,6 +5,8 @@ Created on Thu Apr 29 09:23:44 2021
 @author: omedeiro
 
 https://towardsdatascience.com/easy-steps-to-plot-geographic-data-on-a-map-python-11217859a2db
+https://www.openstreetmap.org/#map=12/42.3655/-71.1517
+
 
 """
 
@@ -23,12 +25,12 @@ dname = os.path.dirname(abspath)
 os.chdir(dname)
     
 
-ruh_m = plt.imread('map_final.png')
+ruh_m = plt.imread('map06062021.png')
 
 fig, ax = plt.subplots(figsize = (32.819/2,23.347/2))
 
 ''' This code is used to plot elevation along x and y axes
-# divider = make_axes_locatable(ax)
+# divider = make_axes_locatable(ax) 
 # ax_elx = divider.append_axes("top", 1.2, pad=0.1, sharex=ax)
 # ax_ely = divider.append_axes("right", 1.2, pad=0.1, sharey=ax)
 # ax_elx.xaxis.set_tick_params(labelbottom=False)
@@ -36,13 +38,13 @@ fig, ax = plt.subplots(figsize = (32.819/2,23.347/2))
 '''
 
 # bbox = (-71.13098, -70.99504, 42.32365,42.38442)
-bbox = (-71.1387, -71.0079, 42.3196, 42.3883) #from photo
+bbox = (-71.1614, -71.0075, 42.3191, 42.4006) #from photo
 
 ax.set_xlim(bbox[0], bbox[1])
 ax.set_ylim(bbox[2],bbox[3])
 ax.imshow(ruh_m, zorder=0, extent = bbox, aspect= 'equal', alpha=0.5)
 
-path = r'G:\My Drive\personal\health\data\20210428\apple_health_export\workout-routes'
+path = r'C:\Users\omedeiro\Downloads\Programs\WPy64-3830\python-3.8.3.amd64\Lib\site-packages\activityAnalysis\workout-routes'
 for file in os.listdir(path):
     if file.endswith(".gpx"):
         print(os.path.join(path, file))

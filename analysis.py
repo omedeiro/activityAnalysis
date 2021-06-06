@@ -13,6 +13,8 @@ from collections import Counter
 from collections import defaultdict
 import ipyhealth
 import os
+from dateutil.relativedelta import *
+
 
 abspath = os.path.abspath(__file__)
 dname = os.path.dirname(abspath)
@@ -43,6 +45,10 @@ running_data = np.delete(running_data, 0, 0)
 
 dates = [datetime.datetime.fromtimestamp(x).date() for x in running_data[:,0]]
 
+'''
+ Fix workouts where I hit "stop" instead of "pause". 
+Then add the two workouts on the same day together
+'''
 D = defaultdict(list)
 for i,item in enumerate(dates):
     D[item].append(i)
@@ -74,5 +80,20 @@ plt.figure()
 plt.plot(dates, runningTotal[:,1], '-o')
 plt.gcf().autofmt_xdate()
 plt.ylabel('duration (min)')
+
+#%% 
+monthyear = []
+for d in dates:
+    yindex = d.year-2019
+    mont = d.month
+    monthyear.append((12*yindex+mont)-1)
+plt.close()        
+bins=np.arange(0, max(monthyear)+1+yindex)
+fig, ax = plt.subplots(1,1, figsize=(10, 3), facecolor='white')
+ax.hist(monthyear, bins=bins, ec='black') #good
+ax.set_xticks(bins[:-2]+0.5) #good
+ax.set_xticklabels([(datetime.date(2019, 1, 1)+relativedelta(months=i)).strftime('%b %Y') for i in bins[:-1]], rotation=90)
+
+plt.ylabel('Runs')
 
 
