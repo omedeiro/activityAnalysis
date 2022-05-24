@@ -81,6 +81,9 @@ plt.plot(dates, runningTotal[:,1], '-o')
 plt.gcf().autofmt_xdate()
 plt.ylabel('duration (min)')
 
+print("LONGEST RUN      : %0.2f mi" %(max(runningTotal[:,2])))
+print("TOTAL MILES      : %0.2f mi" %(sum(runningTotal[:,2])))
+
 #%% 
 monthyear = []
 for d in dates:
@@ -95,5 +98,4 @@ ax.set_xticks(bins[:-2]+0.5) #good
 ax.set_xticklabels([(datetime.date(2019, 1, 1)+relativedelta(months=i)).strftime('%b %Y') for i in bins[:-1]], rotation=90)
 
 plt.ylabel('Runs')
-
 
